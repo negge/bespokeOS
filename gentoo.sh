@@ -31,7 +31,8 @@ unpack() {
 
 prepare() {
 	sed -i -e "s:COMMON_FLAGS=.*:COMMON_FLAGS=\"${BOS_COMMON_FLAGS}\":" ${CHROOTDIR}/etc/portage/make.conf
-	cp /usr/bin/qemu-riscv64 ${CHROOTDIR}/usr/bin
+	QEMU_CPU=${BOS_QEMU_CPU} src/mk.sh
+	mv src/qemu-wrapper-embed ${CHROOTDIR}/usr/bin/qemu-riscv64
 	cp /etc/resolv.conf ${CHROOTDIR}/etc
 	mount --bind /proc ${CHROOTDIR}/proc
 	mount --bind /sys ${CHROOTDIR}/sys
@@ -43,7 +44,7 @@ prepare() {
 }
 
 compile() {
-	QEMU_CPU=${BOS_QEMU_CPU} chroot ${CHROOTDIR} /tmp/chroot.sh
+	chroot ${CHROOTDIR} /tmp/chroot.sh
 }
 
 post_inst() {
