@@ -12,6 +12,7 @@ app-portage/gentoolkit
 app-text/sloccount
 app-text/wgetpaste
 dev-debug/gdb
+dev-debug/strace
 dev-vcs/git
 net-analyzer/nmap
 net-misc/ntp
